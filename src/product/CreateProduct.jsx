@@ -22,6 +22,7 @@ export default function CreateProduct() {
         desc,
         category,
       });
+      setCategory([]);
     } catch (e) {
       console.error(e);
     }

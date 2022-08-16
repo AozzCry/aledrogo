@@ -8,6 +8,7 @@ import Home from "./Home";
 import Products from "./product/Products";
 import CreateProduct from "./product/CreateProduct";
 import ProductInfo from "./product/ProductInfo";
+import WishList from "./product/WishList";
 
 import Cart from "./cart/Cart";
 
@@ -26,6 +27,7 @@ export default function App() {
           <Route path="productinfo" element={<ProductInfo />} />
           <Route path="createproduct" element={<CreateProduct />} />
           <Route path="cart" element={<Cart />} />
+          <Route path="wishlist" element={<WishList />} />
           <Route path="login" element={<Login />} />
           <Route path="register" element={<Register />} />
         </Route>

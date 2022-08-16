@@ -2,13 +2,16 @@ import React, { useEffect, useState } from "react";
 import API from "../env";
 import axios from "axios";
 
-import { Container, ListGroup, Button, Form } from "react-bootstrap";
+import { Container, ListGroup, Button, Form, Row, Col } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
 import Product from "./Product";
 
 export default function ProductList() {
   const [products, setProducts] = useState([]);
+  const [categories, setCategories] = useState([]);
+  const [category, setCategory] = useState("");
+
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -39,10 +42,32 @@ export default function ProductList() {
     })();
   }, []);
 
+  useEffect(() => {
+    let cats = [];
+    for (const product of products) {
+      for (const category of product.category) {
+        if (!cats.includes(category)) {
+          cats.push(category);
+        }
+      }
+    }
+    setCategories(cats);
+  }, [products]);
+
   if (loading) return "Loading...";
   if (error) return "Error..." + error;
   return (
     <Container>
+      <Row className="m-1">
+        <Button onClick={() => setCategory("")}>Wszystkie</Button>
+        {categories.map((category, index) => {
+          return (
+            <Col key={index} onClick={() => setCategory(category)}>
+              {category}
+            </Col>
+          );
+        })}
+      </Row>
       <Form>
         <Form.Group className="m-1" controlId="searchProduct">
           <Form.Label>Search</Form.Label>
@@ -72,6 +97,9 @@ export default function ProductList() {
             {products
               .filter((product) =>
                 product.name.toLowerCase().includes(search.toLowerCase())
+              )
+              .filter((product) =>
+                category ? product.category.includes(category) : true
               )
               .sort(sortMethods[sortState].method)
               .slice(0, productCount)

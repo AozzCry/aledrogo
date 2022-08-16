@@ -55,7 +55,11 @@ export default function CartProduct({ cartProduct, setCartProducts }) {
       >
         Delete
       </Button>
-      <Link className="btn btn-primary" to="/productinfo" state={cartProduct}>
+      <Link
+        className="btn btn-primary"
+        to="/productinfo"
+        state={cartProduct.product}
+      >
         Show more
       </Link>
     </ListGroup.Item>

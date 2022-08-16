@@ -18,11 +18,6 @@ export default function Layout() {
           </Link>
           <Nav>
             <Stack direction="horizontal" gap={2}>
-              <Link to="/cart">
-                <Button className="btn btn-primary w-full">
-                  Cart{userCtx.cart.length}
-                </Button>
-              </Link>
               {!userCtx.email ? (
                 <Container>
                   <Link to="/register">
@@ -33,12 +28,22 @@ export default function Layout() {
                   </Link>
                 </Container>
               ) : (
-                <Link to="/login">
-                  <Button className="btn btn-primary w-full">
-                    {userCtx.email}
-                  </Button>
-                </Link>
+                <Container>
+                  <Link to="/wishlist">
+                    <Button className="btn btn-primary w-full">WishList</Button>
+                  </Link>
+                  <Link to="/login">
+                    <Button className="btn btn-primary w-full">
+                      {userCtx.email}
+                    </Button>
+                  </Link>
+                </Container>
               )}
+              <Link to="/cart">
+                <Button className="btn btn-primary w-full">
+                  Cart{userCtx.cart.length}
+                </Button>
+              </Link>
             </Stack>
           </Nav>
         </Container>

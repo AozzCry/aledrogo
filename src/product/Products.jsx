@@ -30,7 +30,9 @@ export default function ProductList() {
   useEffect(() => {
     (async () => {
       try {
-        const response = await axios.get(`${API}/product`);
+        const response = await axios.get(`${API}/product`, {
+          withCredentials: true,
+        });
         setProducts(response.data);
         setError(null);
       } catch (err) {
@@ -43,15 +45,17 @@ export default function ProductList() {
   }, []);
 
   useEffect(() => {
-    let cats = [];
-    for (const product of products) {
-      for (const category of product.category) {
-        if (!cats.includes(category)) {
-          cats.push(category);
+    if (products) {
+      let cats = [];
+      for (const product of products) {
+        for (const category of product.category) {
+          if (!cats.includes(category)) {
+            cats.push(category);
+          }
         }
       }
+      setCategories(cats);
     }
-    setCategories(cats);
   }, [products]);
 
   if (loading) return "Loading...";

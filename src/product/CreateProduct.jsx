@@ -5,6 +5,9 @@ import axios from "axios";
 import { Button, Form } from "react-bootstrap";
 
 export default function CreateProduct() {
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
   const [name, setName] = useState("");
   const [price, setPrice] = useState("");
   const [count, setCount] = useState("");
@@ -15,17 +18,28 @@ export default function CreateProduct() {
   const handleSubmit = (e) => {
     e.preventDefault();
     try {
-      axios.post(`${API}/product`, {
-        name,
-        price,
-        count,
-        desc,
-        category,
-      });
+      const response = axios.post(
+        `${API}/product`,
+        {
+          name,
+          price,
+          count,
+          desc,
+          category,
+        },
+        {
+          withCredentials: true,
+        }
+      );
+      console.log(response);
       setCategory([]);
-    } catch (e) {
-      console.error(e);
+      setError(null);
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
     }
+    console.log(error);
   };
 
   return (
@@ -82,6 +96,7 @@ export default function CreateProduct() {
       <Button variant="primary" type="submit">
         Submit
       </Button>
+      {error & <p>{error}</p>}
     </Form>
   );
 }

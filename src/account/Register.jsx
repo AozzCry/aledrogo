@@ -12,11 +12,15 @@ const Login = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     try {
-      axios.post(`${API}/register`, {
-        email,
-        name,
-        password,
-      });
+      axios.post(
+        `${API}/register`,
+        {
+          email,
+          name,
+          password,
+        },
+        { withCredentials: true }
+      );
     } catch (e) {
       console.error(e);
     }

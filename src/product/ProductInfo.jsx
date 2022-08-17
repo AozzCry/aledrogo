@@ -1,5 +1,6 @@
-import React, { useContext } from "react";
-
+import React, { useContext, useEffect } from "react";
+import API from "../env";
+import axios from "axios";
 import { useLocation } from "react-router";
 import { Card, Button } from "react-bootstrap";
 
@@ -7,7 +8,6 @@ import UserContext from "../UserContext";
 
 export default function ProductInfo() {
   const userCtx = useContext(UserContext);
-
   const location = useLocation();
   const product = location.state;
   const { name, price, count, desc, category } = product;

@@ -24,11 +24,12 @@ export default function App() {
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
           <Route path="products" element={<Products />} />
-          <Route path="productinfo" element={<ProductInfo />} />
+          <Route path="products/:id" element={<ProductInfo />} />
           <Route path="createproduct" element={<CreateProduct />} />
           <Route path="cart" element={<Cart />} />
           <Route path="wishlist" element={<WishList />} />
           <Route path="login" element={<Login />} />
+          <Route path="accont" element={<Login />} />
           <Route path="register" element={<Register />} />
         </Route>
       </Routes>

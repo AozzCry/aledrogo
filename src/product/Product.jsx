@@ -26,7 +26,11 @@ export default function Product({ product, setProducts }) {
   return (
     <ListGroup.Item>
       {product.name}|{product.price}
-      <Link className="btn btn-primary" to="/productinfo" state={product}>
+      <Link
+        className="btn btn-primary"
+        to={`/products/${product._id}`}
+        state={product}
+      >
         Show more
       </Link>
       <Button className="m-1" onClick={deleteClick}>

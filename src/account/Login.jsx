@@ -15,11 +15,19 @@ const Login = () => {
     e.preventDefault();
     (async () => {
       try {
-        await axios.post(`${API}/login`, {
-          email,
-          password,
-        });
+        const response = await axios.post(
+          `${API}/login`,
+          {
+            email,
+            password,
+          },
+          { withCredentials: true }
+        );
+        if (response.redirected) {
+          console.log("do domu");
+        }
         userCtx.setEmail(email);
+        console.log(response);
       } catch (e) {
         console.error(e);
       }

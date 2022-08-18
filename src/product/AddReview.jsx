@@ -17,12 +17,12 @@ export default function AddReview({ product, setProducts }) {
         const response = await axios.post(
           `${API}/review`,
           {
-            withCredentials: true,
-          },
-          {
             id: product._id,
             grade,
             text: content,
+          },
+          {
+            withCredentials: true,
           }
         );
         console.log(response);

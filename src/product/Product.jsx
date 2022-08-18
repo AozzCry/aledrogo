@@ -3,7 +3,7 @@ import API from "../env";
 import axios from "axios";
 
 import { Link } from "react-router-dom";
-import { ListGroup, Button } from "react-bootstrap";
+import { ListGroup, Button, Form } from "react-bootstrap";
 
 import UserContext from "../UserContext";
 
@@ -13,9 +13,27 @@ export default function Product({ product, setProducts }) {
   const deleteClick = () => {
     (async () => {
       try {
-        await axios.delete(`${API}/product/${product._id}`);
+        await axios.delete(`${API}/product/${product._id}`, {
+          withCredentials: true,
+        });
         setProducts((prevProduct) =>
           prevProduct.filter((x) => x._id !== product._id)
+        );
+      } catch (err) {
+        console.error(err);
+      }
+    })();
+  };
+
+  const addToWishList = () => {
+    (async () => {
+      try {
+        const response = await axios.post(
+          `${API}/wishlist/`,
+          { productId: product._id },
+          {
+            withCredentials: true,
+          }
         );
       } catch (err) {
         console.error(err);
@@ -49,6 +67,7 @@ export default function Product({ product, setProducts }) {
       >
         Add to cart
       </Button>
+      <Button onClick={addToWishList}>Add to wish list</Button>
     </ListGroup.Item>
   );
 }

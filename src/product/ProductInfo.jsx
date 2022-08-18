@@ -4,14 +4,15 @@ import axios from "axios";
 import { useLocation } from "react-router";
 import { Card, Button } from "react-bootstrap";
 
+import AddReview from "./AddReview";
+
 import UserContext from "../UserContext";
 
 export default function ProductInfo() {
   const userCtx = useContext(UserContext);
   const location = useLocation();
   const product = location.state;
-  const { name, price, count, desc, category } = product;
-
+  const { name, price, count, desc, category, reviews } = product;
   return (
     <Card>
       {name}|{price}|{count}|{desc}|
@@ -34,7 +35,12 @@ export default function ProductInfo() {
         }}
       >
         Add to cart
-      </Button>
+      </Button>{" "}
+      {reviews &&
+        reviews.map((review, index) => {
+          return <div key={index}>{review.text}</div>;
+        })}
+      <AddReview product={product}></AddReview>
     </Card>
   );
 }

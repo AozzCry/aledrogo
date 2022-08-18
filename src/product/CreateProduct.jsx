@@ -39,7 +39,6 @@ export default function CreateProduct() {
     } finally {
       setLoading(false);
     }
-    console.log(error);
   };
 
   return (
@@ -96,7 +95,6 @@ export default function CreateProduct() {
       <Button variant="primary" type="submit">
         Submit
       </Button>
-      {error & <p>{error}</p>}
     </Form>
   );
 }

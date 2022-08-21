@@ -1,27 +1,26 @@
-import React from "react";
+import { Route, Routes } from 'react-router-dom';
 
-import { Route, Routes } from "react-router-dom";
+import { ChakraProvider, theme } from '@chakra-ui/react';
 
-import Layout from "./Layout";
-import Home from "./Home";
+import Navbar from './Navbar';
+import Home from './Home';
 
-import Products from "./product/Products";
-import CreateProduct from "./product/CreateProduct";
-import ProductInfo from "./product/ProductInfo";
-import WishList from "./product/WishList";
+import Products from './product/Products';
+import CreateProduct from './product/CreateProduct';
+import ProductInfo from './product/ProductInfo';
+import WishList from './product/WishList';
 
-import Cart from "./cart/Cart";
+import Cart from './cart/Cart';
 
-import Login from "./account/Login";
-import Register from "./account/Register";
-
-import { UserContextProvider } from "./UserContext";
+import Login from './account/Login';
+import Register from './account/Register';
+import Footer from './components/Footer';
 
 export default function App() {
   return (
-    <UserContextProvider>
+    <ChakraProvider theme={theme}>
       <Routes>
-        <Route path="/" element={<Layout />}>
+        <Route path="/" element={<Navbar />}>
           <Route index element={<Home />} />
           <Route path="products" element={<Products />} />
           <Route path="products/:id" element={<ProductInfo />} />
@@ -33,6 +32,7 @@ export default function App() {
           <Route path="register" element={<Register />} />
         </Route>
       </Routes>
-    </UserContextProvider>
+      <Footer />
+    </ChakraProvider>
   );
 }

@@ -35,13 +35,11 @@ export default function WishList() {
           {wishlistProduct &&
             wishlistProduct.map((product, index) => {
               return (
-                <p>
-                  <WishListProduct
-                    key={index}
-                    product={product}
-                    setProducts={setWishListItems}
-                  />
-                </p>
+                <WishListProduct
+                  key={index}
+                  product={product}
+                  setProducts={setWishListItems}
+                />
               );
             })}
         </ListGroup>

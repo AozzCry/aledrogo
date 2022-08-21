@@ -1,24 +1,25 @@
-import React, { useEffect, useState } from "react";
-import API from "../env";
-import axios from "axios";
+import React, { useEffect, useState } from 'react';
+import API from '../env';
+import axios from 'axios';
 
-import { Container, ListGroup, Button, Form, Row, Col } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Container, ListGroup, Button, Form, Row, Col } from 'react-bootstrap';
 
-import Product from "./Product";
+import { Link } from 'react-router-dom';
+
+import Product from './Product';
 
 export default function ProductList() {
   const [products, setProducts] = useState([]);
   const [categories, setCategories] = useState([]);
-  const [category, setCategory] = useState("");
+  const [category, setCategory] = useState('');
 
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   const [productCount, setProductCount] = useState(5);
 
-  const [search, setSearch] = useState("");
-  const [sortState, setSortState] = useState("ascending");
+  const [search, setSearch] = useState('');
+  const [sortState, setSortState] = useState('ascending');
 
   const sortMethods = {
     ascending: { method: (a, b) => (a.name < b.name ? -1 : 1) },
@@ -58,12 +59,12 @@ export default function ProductList() {
     }
   }, [products]);
 
-  if (loading) return "Loading...";
-  if (error) return "Error..." + error;
+  if (loading) return 'Loading...';
+  if (error) return 'Error...' + error;
   return (
     <Container>
       <Row className="m-1">
-        <Button onClick={() => setCategory("")}>Wszystkie</Button>
+        <Button onClick={() => setCategory('')}>Wszystkie</Button>
         {categories.map((category, index) => {
           return (
             <Col key={index} onClick={() => setCategory(category)}>
@@ -79,7 +80,7 @@ export default function ProductList() {
             type="text"
             value={search}
             placeholder="Search string"
-            onChange={(e) => setSearch(e.target.value)}
+            onChange={e => setSearch(e.target.value)}
           />
         </Form.Group>
       </Form>
@@ -90,7 +91,7 @@ export default function ProductList() {
         <Container>
           <Form.Select
             className="m-1"
-            onChange={(e) => setSortState(e.target.value)}
+            onChange={e => setSortState(e.target.value)}
           >
             <option value="ascending">Ascending</option>
             <option value="descending">Descending</option>
@@ -99,10 +100,10 @@ export default function ProductList() {
           </Form.Select>
           <ListGroup className="m-1">
             {products
-              .filter((product) =>
+              .filter(product =>
                 product.name.toLowerCase().includes(search.toLowerCase())
               )
-              .filter((product) =>
+              .filter(product =>
                 category ? product.category.includes(category) : true
               )
               .sort(sortMethods[sortState].method)

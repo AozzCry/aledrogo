@@ -4,32 +4,27 @@ import axios from "axios";
 
 import { Form, Button } from "react-bootstrap";
 
-export default function AddReview({ product, setProducts }) {
+export default function AddReview({ product }) {
   const [grade, setGrade] = useState(0);
   const [content, setContent] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    (async () => {
-      try {
-        console.log(product._id, grade, content);
-
-        const response = await axios.post(
-          `${API}/review`,
-          {
-            id: product._id,
-            grade,
-            text: content,
-          },
-          {
-            withCredentials: true,
-          }
-        );
-        console.log(response);
-      } catch (err) {
-        console.error(err);
-      }
-    })();
+    try {
+      axios.post(
+        `${API}/review`,
+        {
+          id: product._id,
+          grade,
+          text: content,
+        },
+        {
+          withCredentials: true,
+        }
+      );
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   return (
@@ -40,12 +35,14 @@ export default function AddReview({ product, setProducts }) {
           value={content}
           placeholder="Enter review"
           onChange={(e) => setContent(e.target.value)}
+          required
         />
         <Form.Control
           type="number"
           value={grade}
           placeholder="Enter grade"
           onChange={(e) => setGrade(e.target.value)}
+          required
         />
       </Form.Group>
       <Button variant="primary" type="submit">

@@ -1,63 +1,100 @@
-import React, { useState, useContext } from "react";
-import API from "../env";
-import axios from "axios";
+import React, { useState } from 'react';
+import API from '../env';
+import axios from 'axios';
 
-import { Button, Form } from "react-bootstrap";
+import { useNavigate } from 'react-router-dom';
 
-import UserContext from "../UserContext";
+import { useDispatch } from 'react-redux';
+import { userActions } from '../store/user-slice';
+
+import {
+  Box,
+  Input,
+  Stack,
+  Button,
+  Heading,
+  Flex,
+  Spacer,
+} from '@chakra-ui/react';
 
 const Login = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const userCtx = useContext(UserContext);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
-  const handleSubmit = (e) => {
+  const navigate = useNavigate();
+
+  const dispatch = useDispatch();
+  const saveCredentials = () => {
+    dispatch(userActions.saveCredentials({ email, password }));
+  };
+  const handleSubmit = e => {
     e.preventDefault();
-    (async () => {
-      try {
-        const response = await axios.post(
+    try {
+      const response = axios
+        .post(
           `${API}/login`,
           {
             email,
             password,
           },
           { withCredentials: true }
-        );
-        if (response.redirected) {
-          console.log("do domu");
-        }
-        userCtx.setEmail(email);
-        console.log(response);
-      } catch (e) {
-        console.error(e);
-      }
-    })();
+        )
+        .then(saveCredentials())
+        .then(navigate('/'));
+      console.log(response);
+    } catch (e) {
+      console.error(e);
+    }
   };
 
   return (
-    <Form onSubmit={handleSubmit}>
-      <Form.Group className="mb-3" controlId="formBasicEmail">
-        <Form.Label>Email address</Form.Label>
-        <Form.Control
-          type="email"
-          placeholder="Enter email"
-          onChange={(e) => setEmail(e.target.value)}
-        />
-      </Form.Group>
-
-      <Form.Group className="mb-3" controlId="formBasicPassword">
-        <Form.Label>Password</Form.Label>
-        <Form.Control
-          type="password"
-          placeholder="Password"
-          onChange={(e) => setPassword(e.target.value)}
-        />
-      </Form.Group>
-
-      <Button variant="primary" type="submit">
-        Log in
-      </Button>
-    </Form>
+    <form onSubmit={handleSubmit}>
+      <Box
+        maxW="md"
+        borderWidth="1px"
+        borderRadius="lg"
+        alignItems={'center'}
+        overflow="hidden"
+      >
+        <Stack spacing={5}>
+          <Heading mt={'4'} as="h3" textAlign={'center'} size="lg">
+            Log console log beter console
+          </Heading>
+          <Box color="teal.500" textAlign={'center'}>
+            Username
+          </Box>
+          <Input
+            type={'email'}
+            textAlign={'center'}
+            _focus={{
+              bg: 'teal.500',
+            }}
+            variant="flushed"
+            placeholder="Username"
+            onChange={e => setEmail(e.target.value)}
+          />
+          <Box color="teal.500" textAlign={'center'}>
+            Password
+          </Box>
+          <Input
+            type={'password'}
+            textAlign={'center'}
+            _focus={{
+              bg: 'teal.500',
+            }}
+            variant="flushed"
+            placeholder="Password"
+            onChange={e => setPassword(e.target.value)}
+          />
+          <Flex>
+            <Spacer />
+            <Button m={'4'} colorScheme="teal" variant="outline" type="submit">
+              Log in
+            </Button>
+          </Flex>
+        </Stack>
+      </Box>
+    </form>
   );
 };
 

@@ -1,6 +1,7 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
-import { Container, ListGroup } from 'react-bootstrap';
+import React from "react";
+
+import { useSelector } from "react-redux";
+
 import {
   Box,
   Text,
@@ -10,31 +11,27 @@ import {
   InputGroup,
   InputRightElement,
   Input,
-} from '@chakra-ui/react';
-import {
   Accordion,
   AccordionItem,
   AccordionButton,
   AccordionPanel,
   AccordionIcon,
-} from '@chakra-ui/react';
-import { CheckIcon } from '@chakra-ui/icons';
+} from "@chakra-ui/react";
+import { CheckIcon } from "@chakra-ui/icons";
 
-import CartItem from './CartItem';
+import CartItem from "./CartItem";
 
 export default function Cart() {
-  const cart = useSelector(state => state.cart);
+  const cart = useSelector((state) => state.cart);
 
   return (
-    <Container>
+    <Box>
       {cart.items && (
-        <Container>
-          <ListGroup>
-            {cart.items.map((item, index) => {
-              return <CartItem key={index} item={item} />;
-            })}
-          </ListGroup>
-        </Container>
+        <Box>
+          {cart.items.map((item, index) => {
+            return <CartItem key={index} item={item} />;
+          })}
+        </Box>
       )}
       <Box maxW="xs" borderWidth="1px" borderRadius="lg" overflow="hidden">
         <Accordion defaultIndex={[0]} allowMultiple>
@@ -61,17 +58,17 @@ export default function Cart() {
             </AccordionPanel>
           </AccordionItem>
         </Accordion>
-        <Flex justifyContent={'justify-between'}>
-          <Box p={'4'} fontWeight={'bold'}>
-            Total ammount <Box color={'teal.300'}>${cart.totalPrice}</Box>
+        <Flex justifyContent={"justify-between"}>
+          <Box p={"4"} fontWeight={"bold"}>
+            Total ammount <Box color={"teal.300"}>${cart.totalPrice}</Box>
           </Box>
         </Flex>
         <Center>
-          <Button colorScheme="teal" size="md" width={'80%'} mb={4}>
+          <Button colorScheme="teal" size="md" width={"80%"} mb={4}>
             Buy now!
           </Button>
         </Center>
       </Box>
-    </Container>
+    </Box>
   );
 }

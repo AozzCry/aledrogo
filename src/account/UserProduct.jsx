@@ -1,33 +1,22 @@
 import React from "react";
-import { AddToWishList } from "../hooks/useWishList";
-
-import { useDispatch } from "react-redux";
-import { cartActions } from "../store/cart-slice";
+import { DeleteProduct } from "../hooks/useProduct";
 
 import { Link } from "react-router-dom";
 
 import { Box, Image, Button, useToast } from "@chakra-ui/react";
 import { StarIcon } from "@chakra-ui/icons";
 
-export default function Product({ product }) {
+export default function UserProduct({ product, setProducts }) {
   const toast = useToast();
 
-  const dispatch = useDispatch();
-  function addToCartHandler() {
-    dispatch(cartActions.addToCart(product));
+  const { DeleteProductProc } = DeleteProduct({ productId: product._id });
+  function deleteClick() {
+    DeleteProductProc();
+    setProducts((prevProduct) =>
+      prevProduct.filter((x) => x._id !== product._id)
+    );
     toast({
-      title: product.name + " added to cart.",
-      status: "success",
-      duration: 5000,
-      isClosable: true,
-    });
-  }
-
-  const { AddToWishListProc } = AddToWishList({ productId: product._id });
-  function addToWishListClick() {
-    AddToWishListProc();
-    toast({
-      title: product.name + " added to wish list.",
+      title: "Product deleted.",
       status: "success",
       duration: 5000,
       isClosable: true,
@@ -36,13 +25,14 @@ export default function Product({ product }) {
 
   return (
     <Box maxW="sm" borderWidth="1px" borderRadius="lg" overflow="hidden">
+      <Image src={product.images_url[0]} />
+      <Image
+        boxSize="100px"
+        objectFit="cover"
+        src="https://bit.ly/dan-abramov"
+        alt="Dan Abramov"
+      ></Image>
       <Box p="6">
-        <Image
-          boxSize="100px"
-          objectFit="cover"
-          src="https://bit.ly/dan-abramov"
-          alt="Dan Abramov"
-        ></Image>
         <Box
           mt="1"
           fontWeight="semibold"
@@ -79,11 +69,12 @@ export default function Product({ product }) {
         </Box>
         <Button>
           <Link to={`/products/${product._id}`} state={product}>
-            Show more
+            ?Edit?
           </Link>
         </Button>
-        <Button onClick={addToCartHandler}>Add to cart</Button>
-        <Button onClick={addToWishListClick}>Add to wish list</Button>
+        <Button className="m-1" onClick={deleteClick}>
+          Delete
+        </Button>
       </Box>
     </Box>
   );

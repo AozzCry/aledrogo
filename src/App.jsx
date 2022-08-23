@@ -1,20 +1,28 @@
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes } from "react-router-dom";
 
-import { ChakraProvider, theme } from '@chakra-ui/react';
+import { ChakraProvider, extendTheme } from "@chakra-ui/react";
 
-import Navbar from './Navbar';
-import Home from './Home';
+import Navbar from "./main/Navbar";
+import Home from "./main/Home";
+import Footer from "./main/Footer";
 
-import Products from './product/Products';
-import CreateProduct from './product/CreateProduct';
-import ProductInfo from './product/ProductInfo';
-import WishList from './product/WishList';
+import Products from "./product/Products";
+import CreateProduct from "./product/CreateProduct";
+import ProductInfo from "./product/ProductInfo";
 
-import Cart from './cart/Cart';
+import WishList from "./wishlist/WishList";
 
-import Login from './account/Login';
-import Register from './account/Register';
-import Footer from './components/Footer';
+import Cart from "./cart/Cart";
+
+import Login from "./account/Login";
+import Register from "./account/Register";
+import UserProducts from "./account/UserProducts";
+
+const theme = extendTheme({
+  config: {
+    initialColorMode: "dark",
+  },
+});
 
 export default function App() {
   return (
@@ -22,14 +30,19 @@ export default function App() {
       <Routes>
         <Route path="/" element={<Navbar />}>
           <Route index element={<Home />} />
+
           <Route path="products" element={<Products />} />
-          <Route path="products/:id" element={<ProductInfo />} />
+          <Route path="products/:productId" element={<ProductInfo />} />
           <Route path="createproduct" element={<CreateProduct />} />
+
           <Route path="cart" element={<Cart />} />
+
           <Route path="wishlist" element={<WishList />} />
+
           <Route path="login" element={<Login />} />
           <Route path="accont" element={<Login />} />
           <Route path="register" element={<Register />} />
+          <Route path="userproducts" element={<UserProducts />} />
         </Route>
       </Routes>
       <Footer />

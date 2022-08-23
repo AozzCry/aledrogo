@@ -1,49 +1,44 @@
-import React, { useEffect, useState } from 'react';
-import API from '../env';
-import axios from 'axios';
+import React, { useEffect, useState } from "react";
 
-import { Container, ListGroup, Button, Form, Row, Col } from 'react-bootstrap';
+import { GetAllProducts } from "../hooks/useProduct";
 
-import { Link } from 'react-router-dom';
+import {
+  Button,
+  FormControl,
+  Select,
+  Input,
+  Wrap,
+  WrapItem,
+  Box,
+  FormLabel,
+} from "@chakra-ui/react";
 
-import Product from './Product';
+import Product from "./Product";
 
-export default function ProductList() {
-  const [products, setProducts] = useState([]);
+export default function Products() {
+  const { products, error, loading } = GetAllProducts();
   const [categories, setCategories] = useState([]);
-  const [category, setCategory] = useState('');
-
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-
+  const [category, setCategory] = useState("");
   const [productCount, setProductCount] = useState(5);
 
-  const [search, setSearch] = useState('');
-  const [sortState, setSortState] = useState('ascending');
+  const [search, setSearch] = useState("");
+  const [sortState, setSortState] = useState("bestGrade");
 
   const sortMethods = {
     ascending: { method: (a, b) => (a.name < b.name ? -1 : 1) },
     descending: { method: (a, b) => (a.name > b.name ? -1 : 1) },
     lowestPrice: { method: (a, b) => (a.price < b.price ? -1 : 1) },
     highestPrice: { method: (a, b) => (a.price > b.price ? -1 : 1) },
+    bestGrade: {
+      method: (a, b) =>
+        a.reviews.reduce((p1, p2) => p1 + p2.grade, 0) /
+          (a.reviews.length > 0 ? a.reviews.length : 1) >
+        b.reviews.reduce((p1, p2) => p1 + p2.grade, 0) /
+          (b.reviews.length > 0 ? b.reviews.length : 1)
+          ? -1
+          : 1,
+    },
   };
-
-  useEffect(() => {
-    (async () => {
-      try {
-        const response = await axios.get(`${API}/product`, {
-          withCredentials: true,
-        });
-        setProducts(response.data);
-        setError(null);
-      } catch (err) {
-        setError(err.message);
-        setProducts(null);
-      } finally {
-        setLoading(false);
-      }
-    })();
-  }, []);
 
   useEffect(() => {
     if (products) {
@@ -57,78 +52,69 @@ export default function ProductList() {
       }
       setCategories(cats);
     }
-  }, [products]);
+  }, []);
 
-  if (loading) return 'Loading...';
-  if (error) return 'Error...' + error;
+  if (loading) return "Loading...";
+  if (error) return "Error..." + error;
   return (
-    <Container>
-      <Row className="m-1">
-        <Button onClick={() => setCategory('')}>Wszystkie</Button>
+    <Box>
+      <Wrap className="m-1">
+        <Button onClick={() => setCategory("")}>Show all</Button>
         {categories.map((category, index) => {
           return (
-            <Col key={index} onClick={() => setCategory(category)}>
+            <Button key={index} onClick={() => setCategory(category)}>
               {category}
-            </Col>
+            </Button>
           );
         })}
-      </Row>
-      <Form>
-        <Form.Group className="m-1" controlId="searchProduct">
-          <Form.Label>Search</Form.Label>
-          <Form.Control
+      </Wrap>
+      <form>
+        <FormControl>
+          <FormLabel>Search</FormLabel>
+          <Input
             type="text"
             value={search}
             placeholder="Search string"
-            onChange={e => setSearch(e.target.value)}
+            onChange={(e) => setSearch(e.target.value)}
           />
-        </Form.Group>
-      </Form>
-      <Link to="/createproduct">
-        <Button className="m-1">Create product</Button>
-      </Link>
+        </FormControl>
+      </form>
       {products && (
-        <Container>
-          <Form.Select
+        <Wrap>
+          <Select
             className="m-1"
-            onChange={e => setSortState(e.target.value)}
+            onChange={(e) => setSortState(e.target.value)}
           >
+            <option value="bestGrade">Highest grade</option>
             <option value="ascending">Ascending</option>
             <option value="descending">Descending</option>
             <option value="lowestPrice">Lowest price</option>
             <option value="highestPrice">Highest price</option>
-          </Form.Select>
-          <ListGroup className="m-1">
+          </Select>
+          <WrapItem className="m-1">
             {products
-              .filter(product =>
+              .filter((product) =>
                 product.name.toLowerCase().includes(search.toLowerCase())
               )
-              .filter(product =>
+              .filter((product) =>
                 category ? product.category.includes(category) : true
               )
               .sort(sortMethods[sortState].method)
               .slice(0, productCount)
               .map((product, index) => {
-                return (
-                  <Product
-                    key={index}
-                    product={product}
-                    setProducts={setProducts}
-                  />
-                );
+                return <Product key={index} product={product} />;
               })}
-          </ListGroup>
-
-          <Button
-            className="m-1"
-            onClick={() => {
-              setProductCount(productCount + 5);
-            }}
-          >
-            Load more
-          </Button>
-        </Container>
+          </WrapItem>
+        </Wrap>
       )}
-    </Container>
+      <Button
+        className="m-1"
+        onClick={() => {
+          setProductCount(productCount + 5);
+        }}
+      >
+        Load more
+      </Button>
+    </Box>
   );
 }

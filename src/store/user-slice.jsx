@@ -4,14 +4,14 @@ const userSlice = createSlice({
   name: "user",
   initialState: {
     email: "",
-    password: "",
+    name: "",
+    avatar: "",
   },
   reducers: {
     saveCredentials(state, action) {
-      state.email = action.payload.email;
-      state.password = action.payload.password;
-      localStorage.setItem("email", action.payload.email);
-      localStorage.setItem("password", action.payload.password);
+      state.email = action.payload;
+      state.name = action.payload;
+      state.avatar = action.payload;
     },
   },
 });

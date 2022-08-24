@@ -68,8 +68,8 @@ export default function UserProduct({ product, setProducts }) {
           </Box>
         </Box>
         <Button>
-          <Link to={`/products/${product._id}`} state={product}>
-            ?Edit?
+          <Link to={`/editproduct`} state={product}>
+            Edit
           </Link>
         </Button>
         <Button className="m-1" onClick={deleteClick}>

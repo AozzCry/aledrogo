@@ -30,7 +30,9 @@ const Login = () => {
   const saveCredentials = () => {
     dispatch(userActions.saveCredentials(email));
   };
+
   const { resData: user, fetchProc: fetchUser } = useFetch("/user", "GET");
+
   const { fetchProc: fetchLogin } = useFetch("/login", "POST", {
     email,
     password,
@@ -38,21 +40,23 @@ const Login = () => {
 
   async function loginSubmit(e) {
     e.preventDefault();
-    await fetchLogin();
-    await fetchUser();
-    toast({
-      title: "You have been logged in.",
-      description: "Hello " + user.name,
-      status: "success",
-      duration: 5000,
-      isClosable: true,
-    });
-    navigate("/");
-    saveCredentials(user.email, user.name, user.avatar);
-    if (stayLoggedIn) {
-      localStorage.setItem("email", email);
-      localStorage.setItem("password", password);
-    }
+    fetchLogin()
+      .then(() => fetchUser())
+      .then(() => {
+        toast({
+          title: "You have been logged in.",
+          description: "Hello " + user.name,
+          status: "success",
+          duration: 5000,
+          isClosable: true,
+        });
+        navigate("/");
+        saveCredentials(user.email, user.name, user.avatar);
+        if (stayLoggedIn) {
+          localStorage.setItem("email", email);
+          localStorage.setItem("password", password);
+        }
+      });
   }
 
   function stayLoggedInChange() {

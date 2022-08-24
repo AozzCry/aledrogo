@@ -16,6 +16,12 @@ import {
   Flex,
   Spacer,
   useToast,
+  Menu,
+  MenuButton,
+  MenuList,
+  MenuItem,
+  MenuGroup,
+  MenuDivider,
 } from "@chakra-ui/react";
 import {
   CalendarIcon,
@@ -67,36 +73,35 @@ export default function Layout() {
         bg={"gray.700"}
       >
         <Flex>
-          <Link to="/">
-            <Button
-              borderWidth={"1px"}
-              fontWeight="bold"
-              borderRadius="lg"
-              p="4"
-              bg={"teal.800"}
-            >
-              <Text as="em" fontSize={"2xl"} color={"teal.300"}>
-                Aledrogo
-              </Text>
-            </Button>
-          </Link>
-
-          <Spacer />
-          <Logo />
-          <Spacer />
-          <Link to="/products">
-            <Button
-              borderWidth={"1px"}
-              fontWeight="bold"
-              borderRadius="lg"
-              p="4"
-              bg={"teal.800"}
-            >
-              <Text as="em" fontSize={"2xl"} color={"teal.300"}>
-                Products
-              </Text>
-            </Button>
-          </Link>
+          <Center>
+            <Link to="/">
+              <Button
+                borderWidth={"1px"}
+                fontWeight="bold"
+                borderRadius="lg"
+                p="4"
+                bg={"teal.800"}
+              >
+                <Text as="em" fontSize={"2xl"} color={"teal.300"}>
+                  Aledrogo
+                </Text>
+              </Button>
+            </Link>
+            <Logo ml={2} mr={2} />
+            <Link to="/products">
+              <Button
+                borderWidth={"1px"}
+                fontWeight="bold"
+                borderRadius="lg"
+                p="4"
+                bg={"teal.800"}
+              >
+                <Text as="em" fontSize={"2xl"} color={"teal.300"}>
+                  Products
+                </Text>
+              </Button>
+            </Link>
+          </Center>
           <Spacer />
           <Center>
             <Button borderWidth={"1px"} borderRadius="lg" ml={"4"} p="2" h={10}>
@@ -182,7 +187,8 @@ export default function Layout() {
                 p="2"
                 h={10}
                 bg={"teal.500"}
-                ml={4}
+                ml={2}
+                mr={2}
                 _focus={{ bg: "red.500" }}
               >
                 <Center>
@@ -190,21 +196,30 @@ export default function Layout() {
                   <Text ml={"2"}>Logout</Text>
                 </Center>
               </Button>
-              <Link to="/userproducts">
-                <Button
-                  borderWidth={"1px"}
-                  borderRadius="lg"
-                  p="2"
-                  h={10}
-                  bg={"teal.500"}
-                  ml={4}
-                >
-                  <Center>
-                    <ArrowForwardIcon />
-                    <Text ml={"2"}>{user.email}</Text>
-                  </Center>
-                </Button>
-              </Link>
+              <Menu>
+                <MenuButton as={Button} colorScheme="green">
+                  {user.email}
+                </MenuButton>
+                <MenuList>
+                  <MenuGroup title="Account">
+                    <MenuDivider />
+                    <Link to="/edituser">
+                      <MenuItem borderRadius="lg" mb={1}>
+                        <Center>
+                          <Text ml={"2"}>Edit info</Text>
+                        </Center>
+                      </MenuItem>
+                    </Link>
+                    <Link to="/userproducts">
+                      <MenuItem borderRadius="lg" mb={1}>
+                        <Center>
+                          <Text ml={"2"}>Your products</Text>
+                        </Center>
+                      </MenuItem>
+                    </Link>
+                  </MenuGroup>
+                </MenuList>
+              </Menu>
             </Center>
           )}
           <ColorModeSwitcher />

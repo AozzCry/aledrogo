@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import axios from "axios";
 import API from "../env";
 
@@ -11,8 +11,6 @@ export default function useFetch(url, method = "GET", data = null) {
 
   const fetchProc = async () => {
     try {
-      console.log(data);
-
       const res = await axios.request({
         data,
         method,

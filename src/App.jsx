@@ -7,8 +7,9 @@ import Home from "./main/Home";
 import Footer from "./main/Footer";
 
 import Products from "./product/Products";
-import CreateProduct from "./product/CreateProduct";
 import ProductInfo from "./product/ProductInfo";
+import CreateProduct from "./product/CreateProduct";
+import EditProduct from "./product/EditProduct";
 
 import WishList from "./wishlist/WishList";
 
@@ -17,6 +18,7 @@ import Cart from "./cart/Cart";
 import Login from "./account/Login";
 import Register from "./account/Register";
 import UserProducts from "./account/UserProducts";
+import EditUser from "./account/EditUser";
 
 const theme = extendTheme({
   config: {
@@ -34,15 +36,16 @@ export default function App() {
           <Route path="products" element={<Products />} />
           <Route path="products/:productId" element={<ProductInfo />} />
           <Route path="createproduct" element={<CreateProduct />} />
+          <Route path="editproduct" element={<EditProduct />} />
 
           <Route path="cart" element={<Cart />} />
 
           <Route path="wishlist" element={<WishList />} />
 
           <Route path="login" element={<Login />} />
-          <Route path="accont" element={<Login />} />
           <Route path="register" element={<Register />} />
           <Route path="userproducts" element={<UserProducts />} />
+          <Route path="edituser" element={<EditUser />} />
         </Route>
       </Routes>
       <Footer />

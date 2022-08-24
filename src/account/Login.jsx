@@ -36,10 +36,10 @@ const Login = () => {
     password,
   });
 
-  function loginSubmit(e) {
+  async function loginSubmit(e) {
     e.preventDefault();
-    fetchLogin();
-    fetchUser();
+    await fetchLogin();
+    await fetchUser();
     toast({
       title: "You have been logged in.",
       description: "Hello " + user.name,

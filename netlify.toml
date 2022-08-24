@@ -1,7 +1,7 @@
 [build]
   command = "npm run build"
-  publish = "aledrogo/build/"
-  base = "aledrogo/"
+  publish = "src/build/"
+  base = "src/"
 [[redirects]]
   from = "/*"
   to = "/index.html"

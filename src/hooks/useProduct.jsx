@@ -12,7 +12,7 @@ export function GetAllProducts() {
 
   useEffect(() => {
     fetchProc();
-  }, []);
+  }, [fetchProc]);
 
   return { products, setProducts, error, loading, fetchProc };
 }
@@ -28,7 +28,7 @@ export function GetOneProduct({ productId }) {
 
   useEffect(() => {
     fetchProc();
-  }, []);
+  }, [fetchProc]);
 
   return { product, setProduct, error, loading, fetchProc };
 }
@@ -44,7 +44,7 @@ export function GetUserProducts() {
 
   useEffect(() => {
     fetchProc();
-  }, []);
+  }, [fetchProc]);
 
   return { products, setProducts, error, loading, fetchProc };
 }

@@ -12,7 +12,7 @@ export function GetWishList() {
 
   useEffect(() => {
     fetchProc();
-  }, []);
+  }, [fetchProc]);
 
   return { wishList, setWishList, error, loading, fetchProc };
 }

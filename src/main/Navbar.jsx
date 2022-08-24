@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useCallback } from "react";
 import useFetch from "../hooks/useFetch";
 
 import { Link, Outlet, useNavigate } from "react-router-dom";
@@ -41,14 +41,17 @@ export default function Layout() {
   const toast = useToast();
 
   const dispatch = useDispatch();
-  const saveCredentials = () => {
-    dispatch(userActions.saveCredentials("", "", ""));
-  };
+  const saveCredentials = useCallback(
+    (email, name, avatar) => {
+      dispatch(userActions.saveCredentials({ email, name, avatar }));
+    },
+    [dispatch]
+  );
 
-  const { fetchProc } = useFetch("/logout", "POST");
+  const { fetchProc: fetchLogout } = useFetch("/logout", "POST");
 
   function logout() {
-    fetchProc();
+    fetchLogout();
     navigate("/");
     toast({
       title: "You have been logged out.",
@@ -58,8 +61,33 @@ export default function Layout() {
       isClosable: true,
     });
     localStorage.clear();
-    saveCredentials();
+    saveCredentials("", "", "");
   }
+
+  const { resData, fetchProc: fetchLogin } = useFetch("/login", "POST", {
+    email: localStorage.getItem("email"),
+    password: localStorage.getItem("password"),
+  });
+  useEffect(() => {
+    if (localStorage.getItem("email") && localStorage.getItem("password"))
+      fetchLogin();
+  }, []);
+  useEffect(() => {
+    if (resData) {
+      toast({
+        title: "You have been logged in automaticly.",
+        description: "Hello " + resData.user.name,
+        status: "success",
+        duration: 5000,
+        isClosable: true,
+      });
+      saveCredentials(
+        resData.user.email,
+        resData.user.name,
+        resData.user.avatar
+      );
+    }
+  }, [resData, saveCredentials, toast]);
 
   return (
     <>

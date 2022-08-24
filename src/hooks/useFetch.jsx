@@ -4,12 +4,12 @@ import API from "../env";
 
 axios.defaults.baseURL = API;
 
-export default function useFetch(url, method = "GET", data = null) {
+export default function useFetch(url, method, data = null) {
   const [resData, setResData] = useState(null);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(true);
 
-  const fetchProc = async () => {
+  const fetchProc = useCallback(async () => {
     try {
       const res = await axios.request({
         data,
@@ -27,6 +27,6 @@ export default function useFetch(url, method = "GET", data = null) {
       setLoading(false);
       return true;
     }
-  };
+  }, [data, method, url]);
   return { resData, setResData, error, loading, fetchProc };
 }

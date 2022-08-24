@@ -7,15 +7,7 @@ import { useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { cartActions } from "../store/cart-slice";
 
-import {
-  Button,
-  Box,
-  Heading,
-  Text,
-  Stack,
-  useToast,
-  Image,
-} from "@chakra-ui/react";
+import { Button, Box, Heading, Text, Stack, useToast } from "@chakra-ui/react";
 import { StarIcon } from "@chakra-ui/icons";
 
 import AddReview from "../review/AddReview";

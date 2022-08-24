@@ -9,9 +9,9 @@ const userSlice = createSlice({
   },
   reducers: {
     saveCredentials(state, action) {
-      state.email = action.payload;
-      state.name = action.payload;
-      state.avatar = action.payload;
+      state.email = action.payload.email;
+      state.name = action.payload.name;
+      state.avatar = action.payload.avatar;
     },
   },
 });

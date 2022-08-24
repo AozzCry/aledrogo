@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import useFetch from "../hooks/useFetch";
 
 import { useNavigate } from "react-router-dom";
@@ -19,45 +19,51 @@ import {
 } from "@chakra-ui/react";
 
 const Login = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState(null);
+  const [password, setPassword] = useState(null);
   const [stayLoggedIn, setStayLoggedIn] = useState(false);
 
   const navigate = useNavigate();
   const toast = useToast();
 
   const dispatch = useDispatch();
-  const saveCredentials = () => {
-    dispatch(userActions.saveCredentials(email));
-  };
+  const saveCredentials = useCallback(
+    (email, name, avatar) => {
+      dispatch(userActions.saveCredentials({ email, name, avatar }));
+    },
+    [dispatch]
+  );
 
-  const { resData: user, fetchProc: fetchUser } = useFetch("/user", "GET");
-
-  const { fetchProc: fetchLogin } = useFetch("/login", "POST", {
+  const { resData, fetchProc: fetchLogin } = useFetch("/login", "POST", {
     email,
     password,
   });
 
-  async function loginSubmit(e) {
+  function loginSubmit(e) {
     e.preventDefault();
-    fetchLogin()
-      .then(() => fetchUser())
-      .then(() => {
-        toast({
-          title: "You have been logged in.",
-          description: "Hello " + user.name,
-          status: "success",
-          duration: 5000,
-          isClosable: true,
-        });
-        navigate("/");
-        saveCredentials(user.email, user.name, user.avatar);
-        if (stayLoggedIn) {
-          localStorage.setItem("email", email);
-          localStorage.setItem("password", password);
-        }
-      });
+    fetchLogin();
   }
+  useEffect(() => {
+    if (resData) {
+      navigate("/");
+      toast({
+        title: "You have been logged in.",
+        description: "Hello " + resData.user.name,
+        status: "success",
+        duration: 5000,
+        isClosable: true,
+      });
+      saveCredentials(
+        resData.user.email,
+        resData.user.name,
+        resData.user.avatar
+      );
+      if (stayLoggedIn) {
+        localStorage.setItem("email", resData.user.email);
+        localStorage.setItem("password", password);
+      }
+    }
+  }, [resData, stayLoggedIn, saveCredentials, toast, navigate, password]);
 
   function stayLoggedInChange() {
     setStayLoggedIn(!stayLoggedIn);

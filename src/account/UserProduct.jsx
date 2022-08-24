@@ -67,11 +67,9 @@ export default function UserProduct({ product, setProducts }) {
             {product.reviews.length}
           </Box>
         </Box>
-        <Button>
-          <Link to={`/editproduct`} state={product}>
-            Edit
-          </Link>
-        </Button>
+        <Link to={`/productform`} state={product}>
+          <Button>Edit</Button>
+        </Link>
         <Button className="m-1" onClick={deleteClick}>
           Delete
         </Button>

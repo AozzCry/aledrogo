@@ -13,8 +13,8 @@ export default function Home() {
       maxW="xs"
       borderWidth="1px"
       borderRadius="lg"
-      borderColor={"teal.500"}
-      boxShadow={"teal.500"}
+      borderColor="teal.500"
+      boxShadow="teal.500"
       overflow="hidden"
     >
       <Center>

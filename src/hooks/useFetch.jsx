@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import axios from "axios";
 import API from "../env";
 
@@ -9,10 +9,8 @@ export default function useFetch(url, method = "GET", data = null) {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(true);
 
-  const fetchProc = async () => {
+  const fetchProc = useCallback(async () => {
     try {
-      console.log(data);
-
       const res = await axios.request({
         data,
         method,
@@ -29,6 +27,6 @@ export default function useFetch(url, method = "GET", data = null) {
       setLoading(false);
       return true;
     }
-  };
+  }, [data, method, url]);
   return { resData, setResData, error, loading, fetchProc };
 }

@@ -1,5 +1,5 @@
 [build]
-  command = "npm run build"
+  command = "CL=false npm run build"
 [[redirects]]
   from = "/*"
   to = "/index.html"

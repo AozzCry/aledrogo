@@ -44,7 +44,7 @@ const Login = () => {
     fetchLogin();
   }
   useEffect(() => {
-    if (resData) {
+    if (resData && resData.user) {
       navigate("/");
       toast({
         title: "You have been logged in.",

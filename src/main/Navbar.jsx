@@ -73,7 +73,7 @@ export default function Layout() {
       fetchLogin();
   }, []);
   useEffect(() => {
-    if (resData) {
+    if (resData && resData.user) {
       toast({
         title: "You have been logged in automaticly.",
         description: "Hello " + resData.user.name,

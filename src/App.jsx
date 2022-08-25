@@ -18,6 +18,7 @@ import Login from "./account/Login";
 import Register from "./account/Register";
 import UserProducts from "./account/UserProducts";
 import EditUser from "./account/EditUser";
+import Layout from "./Layout";
 
 const theme = extendTheme({
   config: {
@@ -29,6 +30,7 @@ export default function App() {
   return (
     <ChakraProvider theme={theme}>
       <Navbar />
+
       <Routes>
         <Route path="/" exact element={<Home />} />
 
@@ -46,6 +48,7 @@ export default function App() {
         <Route path="/edituser" element={<EditUser />} />
         <Route path="/userproducts" element={<UserProducts />} />
       </Routes>
+
       <Footer />
     </ChakraProvider>
   );

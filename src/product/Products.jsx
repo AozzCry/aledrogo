@@ -15,6 +15,7 @@ import {
 } from "@chakra-ui/react";
 
 import Product from "./Product";
+import ProductSkeleton from "./ProductSkeleton";
 
 export default function Products() {
   const { products, error, loading } = GetAllProducts();
@@ -56,7 +57,6 @@ export default function Products() {
     }
   }, [products]);
 
-  if (loading) return "Loading...";
   if (error) return "Error..." + error;
   return (
     <Box>

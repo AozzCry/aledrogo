@@ -63,7 +63,10 @@ export default function Layout() {
     saveCredentials("", "", "");
   }
 
-  const { resData, fetchProc: fetchLogin } = useFetch("/login", "POST");
+  const { resData, fetchProc: fetchLogin } = useFetch("/login", "POST", {
+    email: localStorage.getItem("email"),
+    password: localStorage.getItem("password"),
+  });
   useEffect(() => {
     if (localStorage.getItem("email") && localStorage.getItem("password"))
       fetchLogin();

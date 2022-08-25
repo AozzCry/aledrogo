@@ -4,7 +4,7 @@ import API from "../env";
 
 axios.defaults.baseURL = API;
 
-export default function useFetch(url, method = "GET", data = null) {
+export default function useFetch(url, method, data = null) {
   const [resData, setResData] = useState(null);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(true);

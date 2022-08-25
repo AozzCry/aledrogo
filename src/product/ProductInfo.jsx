@@ -38,8 +38,8 @@ export default function ProductInfo() {
       duration: 5000,
       isClosable: true,
     });
+    console.log(product);
   }
-
   if (loading) return "Loading...";
   if (error) return "Error..." + error;
   return (

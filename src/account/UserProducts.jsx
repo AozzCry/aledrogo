@@ -14,7 +14,7 @@ export default function UserProducts() {
   if (error) return "Error..." + error;
   return (
     <Box>
-      <Link to="/createproduct">
+      <Link to="/productform">
         <Button className="m-1">Create product</Button>
       </Link>
       {products && (

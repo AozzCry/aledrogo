@@ -3,7 +3,7 @@ import { PhoneIcon, EmailIcon, InfoIcon } from "@chakra-ui/icons";
 
 const Footer = () => {
   return (
-    <Flex bg={"gray.700"} p={[2, 5, 2, 5]} wrap="wrap" justify="space-between">
+    <Flex bg={"gray.700"} p={2} wrap="wrap">
       <Box>
         <Text fontSize={"2xl"}>Marketplace</Text>
         <Text> Our Products</Text>
@@ -23,12 +23,14 @@ const Footer = () => {
           Here we are!
         </Text>
       </Box>
+      <Spacer />
       <Box>
         <Text fontSize={"2xl"}>Social Media</Text>
         <Text>moodle2137.pcz</Text>
         <Text>gadugadu.pl</Text>
         <Text>gov.pl</Text>
       </Box>
+      <Spacer />
       <Box>
         <Text fontSize={"2xl"}>Contact</Text>
         <Text fontSize={"xl"}>
@@ -41,6 +43,7 @@ const Footer = () => {
           aledrogo@aledrogo.aq
         </Text>
       </Box>
+      <Spacer />
     </Flex>
   );
 };

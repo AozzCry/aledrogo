@@ -8,9 +8,10 @@ import {
   Select,
   Input,
   Wrap,
-  WrapItem,
+  GridItem,
   Box,
   FormLabel,
+  Grid,
 } from "@chakra-ui/react";
 
 import Product from "./Product";
@@ -19,7 +20,7 @@ export default function Products() {
   const { products, error, loading } = GetAllProducts();
   const [categories, setCategories] = useState([]);
   const [category, setCategory] = useState("");
-  const [productCount, setProductCount] = useState(5);
+  const [productCount, setProductCount] = useState(4);
 
   const [search, setSearch] = useState("");
   const [sortState, setSortState] = useState("bestGrade");
@@ -44,15 +45,16 @@ export default function Products() {
     if (products) {
       let cats = [];
       for (const product of products) {
-        for (const category of product.category) {
-          if (!cats.includes(category)) {
-            cats.push(category);
+        for (const cate of product.category) {
+          console.log(cate);
+          if (!cats.includes(cate)) {
+            cats.push(cate);
           }
         }
       }
       setCategories(cats);
     }
-  }, []);
+  }, [products]);
 
   if (loading) return "Loading...";
   if (error) return "Error..." + error;
@@ -60,10 +62,14 @@ export default function Products() {
     <Box>
       <Wrap className="m-1">
         <Button onClick={() => setCategory("")}>Show all</Button>
-        {categories.map((category, index) => {
+        {categories.map((cate, index) => {
           return (
-            <Button key={index} onClick={() => setCategory(category)}>
-              {category}
+            <Button
+              key={index}
+              bg={cate === category ? "red" : "blue"}
+              onClick={() => setCategory(cate)}
+            >
+              {cate}
             </Button>
           );
         })}
@@ -79,38 +85,37 @@ export default function Products() {
           />
         </FormControl>
       </form>
+      <Select className="m-1" onChange={(e) => setSortState(e.target.value)}>
+        <option value="bestGrade">Highest grade</option>
+        <option value="ascending">Ascending</option>
+        <option value="descending">Descending</option>
+        <option value="lowestPrice">Lowest price</option>
+        <option value="highestPrice">Highest price</option>
+      </Select>
       {products && (
-        <Wrap>
-          <Select
-            className="m-1"
-            onChange={(e) => setSortState(e.target.value)}
-          >
-            <option value="bestGrade">Highest grade</option>
-            <option value="ascending">Ascending</option>
-            <option value="descending">Descending</option>
-            <option value="lowestPrice">Lowest price</option>
-            <option value="highestPrice">Highest price</option>
-          </Select>
-          <WrapItem className="m-1">
-            {products
-              .filter((product) =>
-                product.name.toLowerCase().includes(search.toLowerCase())
-              )
-              .filter((product) =>
-                category ? product.category.includes(category) : true
-              )
-              .sort(sortMethods[sortState].method)
-              .slice(0, productCount)
-              .map((product, index) => {
-                return <Product key={index} product={product} />;
-              })}
-          </WrapItem>
-        </Wrap>
+        <Grid templateColumns={"repeat(4, 2fr)"}>
+          {products
+            .filter((product) =>
+              product.name.toLowerCase().includes(search.toLowerCase())
+            )
+            .filter((product) =>
+              category ? product.category.includes(category) : true
+            )
+            .sort(sortMethods[sortState].method)
+            .slice(0, productCount)
+            .map((product, index) => {
+              return (
+                <GridItem className="m-1">
+                  <Product key={index} product={product} />
+                </GridItem>
+              );
+            })}
+        </Grid>
       )}
       <Button
         className="m-1"
         onClick={() => {
-          setProductCount(productCount + 5);
+          setProductCount(productCount + 4);
         }}
       >
         Load more

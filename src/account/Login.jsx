@@ -82,7 +82,7 @@ const Login = () => {
             Log console log beter console
           </Heading>
           <Box color="teal.500" textAlign={"center"}>
-            Username
+            Email
           </Box>
           <Input
             type={"email"}

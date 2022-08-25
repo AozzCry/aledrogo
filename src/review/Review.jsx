@@ -4,7 +4,6 @@ import useFetch from "../hooks/useFetch";
 import {
   Button,
   FormControl,
-  FormLabel,
   Input,
   Box,
   Image,
@@ -81,7 +80,6 @@ export default function Review({ review, productId }) {
         })}
       <form onSubmit={addCommentSubmit}>
         <FormControl>
-          <FormLabel>Search</FormLabel>
           <Input
             type="text"
             value={comment}

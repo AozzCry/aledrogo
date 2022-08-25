@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 
 import { Box, HStack, Image, Text, Button } from "@chakra-ui/react";
 import { DeleteIcon } from "@chakra-ui/icons";
+import ProductImage from "../product/ProductImage";
 
 export default function CartProduct({ item }) {
   const dispatch = useDispatch();
@@ -27,12 +28,7 @@ export default function CartProduct({ item }) {
     <Box maxW="7xl" borderWidth="1px" borderRadius="lg" overflow="hidden">
       <Box m={"3"} borderWidth="1px" borderRadius="lg" overflow="hidden">
         <HStack m={"3"} spacing={8}>
-          <Image
-            boxSize="100px"
-            objectFit="cover"
-            src="https://bit.ly/dan-abramov"
-            alt="Dan Abramov"
-          ></Image>
+          <ProductImage images={item.product.images_url} />
           <Text>{item.product.name}</Text>
           <Text>${item.product.price}</Text>
           <input

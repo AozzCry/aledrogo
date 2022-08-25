@@ -1,10 +1,12 @@
 import React from "react";
-import { DeleteProduct } from "../hooks/useProduct";
-
 import { Link } from "react-router-dom";
 
-import { Box, Image, Button, useToast } from "@chakra-ui/react";
+import { DeleteProduct } from "../hooks/useProduct";
+
+import { Box, Button, useToast } from "@chakra-ui/react";
 import { StarIcon } from "@chakra-ui/icons";
+
+import ProductImage from "../product/ProductImage";
 
 export default function UserProduct({ product, setProducts }) {
   const toast = useToast();
@@ -25,14 +27,8 @@ export default function UserProduct({ product, setProducts }) {
 
   return (
     <Box maxW="sm" borderWidth="1px" borderRadius="lg" overflow="hidden">
-      <Image src={product.images_url[0]} />
-      <Image
-        boxSize="100px"
-        objectFit="cover"
-        src="https://bit.ly/dan-abramov"
-        alt="Dan Abramov"
-      ></Image>
       <Box p="6">
+        <ProductImage images={product.images_url}></ProductImage>
         <Box
           mt="1"
           fontWeight="semibold"

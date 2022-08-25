@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState } from "react";
+import useFetch from "../hooks/useFetch";
 
 import { useSelector } from "react-redux";
 
@@ -16,14 +17,30 @@ import {
   AccordionButton,
   AccordionPanel,
   AccordionIcon,
+  useToast,
 } from "@chakra-ui/react";
 import { CheckIcon } from "@chakra-ui/icons";
 
 import CartItem from "./CartItem";
 
 export default function Cart() {
+  const toast = useToast();
   const cart = useSelector((state) => state.cart);
-
+  const [code, setCode] = useState("");
+  const { resData, fetchProc } = useFetch("/discount", "POST", {
+    code,
+  });
+  function applyDiscount(e) {
+    e.preventDefault();
+    fetchProc();
+    toast({
+      title: "Discount applied.",
+      status: "success",
+      duration: 5000,
+      isClosable: true,
+    });
+  }
+  console.log(resData);
   return (
     <Box>
       {cart.items && (
@@ -45,16 +62,16 @@ export default function Cart() {
               </AccordionButton>
             </h2>
             <AccordionPanel pb={4}>
-              <InputGroup>
-                <InputRightElement
-                  children={
-                    <Button>
-                      <CheckIcon color="teal.300" />
-                    </Button>
-                  }
+              <form onSubmit={applyDiscount}>
+                <Input
+                  type="text"
+                  onChange={(e) => setCode(e.target.value)}
+                  placeholder="Promo code"
                 />
-                <Input type="text" placeholder="Promo code" />
-              </InputGroup>
+                <Button type="submit">
+                  <CheckIcon color="teal.300" />
+                </Button>
+              </form>
             </AccordionPanel>
           </AccordionItem>
         </Accordion>

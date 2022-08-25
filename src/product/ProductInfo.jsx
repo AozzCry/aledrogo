@@ -40,6 +40,7 @@ export default function ProductInfo() {
     });
     console.log(product);
   }
+  console.log(product);
   if (loading) return "Loading...";
   if (error) return "Error..." + error;
   return (

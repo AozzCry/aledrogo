@@ -11,7 +11,7 @@ const userSlice = createSlice({
     saveCredentials(state, action) {
       state.email = action.payload.email;
       state.name = action.payload.name;
-      state.avatar = action.payload.avatar;
+      if (action.payload.avatar) state.avatar = action.payload.avatar;
     },
   },
 });

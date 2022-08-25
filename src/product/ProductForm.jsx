@@ -23,7 +23,7 @@ export default function ProductForm() {
   const [name, setName] = useState("");
   const [price, setPrice] = useState(0);
   const [count, setCount] = useState(0);
-  const photos = new FormData();
+
   const [category, setCategory] = useState([]);
   const [desc, setDesc] = useState("");
 
@@ -80,41 +80,27 @@ export default function ProductForm() {
     }
     setAlbum(arrayCopy);
   }
+
+  const data = new FormData();
   for (let i = 0; i < album.length; i++) {
-    photos.append("productPhotos", album[i].photo);
+    data.append("productPhotos", album[i].photo);
+  }
+  for (let i = 0; i < category.length; i++) {
+    data.append("category", category[i]);
   }
 
-  function addCategory() {
-    if (
-      newCategory !== "" &&
-      category.findIndex((x) => x === newCategory) === -1
-    ) {
-      console.log(newCategory);
-      const newArray = [...category];
-      newArray.push(newCategory);
-      setCategory(newArray);
-      setNewCategory("");
-      setAddInput(false);
-    }
-  }
-  function deleteCategory(e) {
-    const newArray = [...category].filter((x) => x !== e.target.value);
-    setCategory(newArray);
-  }
+  data.append("price", price);
+  data.append("name", name);
+  data.append("desc", desc);
+  data.append("count", count);
 
   const { fetchProc } = useFetch(
     product ? "/product/" + product._id : "/product",
     "POST",
-    {
-      price,
-      name,
-      desc,
-      photos,
-      category,
-      count,
-    }
+    data
   );
-  function addProductSubmit() {
+  function addProductSubmit(e) {
+    e.preventDefault();
     fetchProc();
     toast({
       title: product ? "Product edited." : "Product created.",
@@ -126,7 +112,7 @@ export default function ProductForm() {
 
   return (
     <Box maxW="3xl" borderWidth="1px" borderRadius="lg" overflow="hidden">
-      <form onSubmit={() => addProductSubmit()}>
+      <form onSubmit={addProductSubmit}>
         <Heading
           textAlign={"center"}
           fontFamily={""}
@@ -234,12 +220,11 @@ export default function ProductForm() {
             <Grid templateColumns="repeat(4, 1fr)" gap={0.5}>
               {album &&
                 album.map((photo) => (
-                  <GridItem m={0.5}>
+                  <GridItem key={photo.id} m={0.5}>
                     <Image
                       src={`${URL.createObjectURL(photo.photo)}`}
                       alt="picture"
                       id={photo.id}
-                      key={photo.id}
                       onClick={(e) => deletePhoto(e)}
                       w={"90px"}
                       h={"90px"}
@@ -266,7 +251,12 @@ export default function ProductForm() {
                       }}
                       variant="flushed"
                       value={cat}
-                      onClick={(e) => deleteCategory(e)}
+                      onClick={(e) => {
+                        const newArray = [...category].filter(
+                          (x) => x !== e.target.value
+                        );
+                        setCategory(newArray);
+                      }}
                       key={index}
                     >
                       {cat}
@@ -297,7 +287,13 @@ export default function ProductForm() {
                     />
                     <Button
                       onClick={() => {
-                        newCategory !== "" && addCategory();
+                        if (
+                          newCategory !== "" &&
+                          !category.includes(newCategory)
+                        ) {
+                          setCategory(category.concat(newCategory));
+                          setNewCategory("");
+                        }
                       }}
                     >
                       Add

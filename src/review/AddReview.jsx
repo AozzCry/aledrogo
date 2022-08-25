@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Textarea,Grid, GridItem,Center,Box } from '@chakra-ui/react'
 import useFetch from "../hooks/useFetch";
 
 import {
@@ -33,30 +34,46 @@ export default function AddReview({ product }) {
 
   return (
     <form onSubmit={addReview}>
-      <FormControl>
-        <FormLabel>Enter review</FormLabel>
-        <Input
-          type="text"
-          value={content}
-          placeholder="Enter review"
-          onChange={(e) => setContent(e.target.value)}
-          required
-        ></Input>
-      </FormControl>
-
+      <Grid templateColumns='repeat(2, 1fr)' gap={6}>
+      <GridItem>
       <FormControl>
         <FormLabel>Enter grade 1-5</FormLabel>
         <Input
           type="number"
           value={grade}
           placeholder="Enter grade"
+          min={0}
+          max={5}
           onChange={(e) => setGrade(e.target.value)}
           required
         ></Input>
+        
       </FormControl>
-      <Button variant="primary" type="submit">
-        Submit
+      </GridItem>
+      <GridItem>
+     
+        <Center>
+          
+      <Button colorScheme="teal" variant="outline" type="submit" width={'100%'} mt={8}>
+        Add rewiev
       </Button>
+      </Center>
+      
+      </GridItem>
+      </Grid>
+      <FormControl>
+        <FormLabel>Enter review</FormLabel>
+        <Textarea
+          type="text"
+          value={content}
+          placeholder="Enter review"
+          onChange={(e) => setContent(e.target.value)}
+          required
+        ></Textarea>
+      </FormControl>
+
+      
+     
     </form>
   );
 }

@@ -7,7 +7,7 @@ import { useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { cartActions } from "../store/cart-slice";
 
-import { Button, Box, Heading, Text, Stack, useToast } from "@chakra-ui/react";
+import { Button, Box, Heading, Text, Stack, useToast,Grid,GridItem,Image,Center } from "@chakra-ui/react";
 import { StarIcon } from "@chakra-ui/icons";
 
 import AddReview from "../review/AddReview";
@@ -44,7 +44,9 @@ export default function ProductInfo() {
   if (error) return "Error..." + error;
   return (
     <Box maxW="3xl" borderWidth="1px" borderRadius="lg" overflow="hidden">
-      <Box as="span" ml="2" color="gray.600" fontSize="sm">
+      <Grid templateColumns='repeat(2, 1fr)' gap={6}>
+        <GridItem>
+      <Box as="span"  color="teal.500" fontSize="sm">
         {product.category && (
           <div>
             {product.category.map((cat, index) => {
@@ -73,11 +75,12 @@ export default function ProductInfo() {
       <Text as="em" fontSize="sm">
         Details:
       </Text>
-      <Text ml="2" maxW="650px">
+      <Text ml="2" maxW="650px" fontSize="md">
         {product.desc}{" "}
       </Text>
       <Box m={4} color="teal.500" fontSize="xl" fontWeight="bold">
-        {product.price}
+      Pirce:
+        ${product.price}
       </Box>
       <Stack direction="row" ml="2" m={6} spacing={4} align="center">
         <Button
@@ -90,11 +93,33 @@ export default function ProductInfo() {
         </Button>
         <Button onClick={addToWishListClick}>Add to wish list</Button>
       </Stack>
+      </GridItem>
+      <GridItem> 
+        <Center>
+      <Image
+          boxSize="200px"
+          objectFit="cover"
+          src="https://bit.ly/dan-abramov"
+          alt="Dan Abramov"
+          border={'2px'}
+          borderColor={'teal.400'}
+          mt={'2'}
+        ></Image>
+        </Center>
+      </GridItem>
+      </Grid>
+      
       <AddReview product={product}></AddReview>
+      <Box border={'1px'} mt={2} mb={2} borderColor={'teal.500'}  borderRadius="lg"bg="gray.700">
+        <Center>
+        <Text fontSize={'xl'}> Last reviews </Text>
+        </Center>
+      </Box>
       {product.reviews &&
         product.reviews.map((review, index) => {
           return <Review key={index} review={review} productId={product._id} />;
         })}
+        
     </Box>
   );
 }

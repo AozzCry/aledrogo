@@ -15,6 +15,12 @@ import {
   Flex,
   Spacer,
   useToast,
+  Menu,
+  MenuList,
+  MenuGroup,
+  MenuDivider,
+  MenuItem,
+  MenuButton,
 } from "@chakra-ui/react";
 
 import {
@@ -163,8 +169,8 @@ export default function Layout() {
               <ArrowBackIcon />
               <Text ml={"2"}>Logout</Text>
             </Button>
-            <Link to="/userproducts">
-              <Button
+            <Menu>
+              <MenuButton
                 borderWidth={"1px"}
                 borderRadius="lg"
                 p="2"
@@ -173,9 +179,24 @@ export default function Layout() {
                 ml={4}
               >
                 <ArrowForwardIcon />
-                <Text ml={"2"}>{user.email}</Text>
-              </Button>
-            </Link>
+                {user.email}
+              </MenuButton>
+              <MenuList>
+                <MenuGroup title="Account">
+                  <MenuDivider />
+                  <Link to="/edituser">
+                    <MenuItem borderRadius="lg" mb={1}>
+                      <Text ml={"2"}>Edit info</Text>
+                    </MenuItem>
+                  </Link>
+                  <Link to="/userproducts">
+                    <MenuItem borderRadius="lg" mb={1}>
+                      <Text ml={"2"}>Your products</Text>
+                    </MenuItem>
+                  </Link>
+                </MenuGroup>
+              </MenuList>
+            </Menu>
           </Box>
         )}
         <ColorModeSwitcher />

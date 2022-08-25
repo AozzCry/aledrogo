@@ -17,6 +17,7 @@ import Cart from "./cart/Cart";
 import Login from "./account/Login";
 import Register from "./account/Register";
 import UserProducts from "./account/UserProducts";
+import Layout from "./Layout";
 
 const theme = extendTheme({
   config: {
@@ -27,24 +28,28 @@ const theme = extendTheme({
 export default function App() {
   return (
     <ChakraProvider theme={theme}>
-      <Navbar />
-      <Routes>
-        <Route path="/" exact element={<Home />} />
+      <Layout>
+        <Navbar />
 
-        <Route path="/products" element={<Products />} />
-        <Route path="/products/:productId" element={<ProductInfo />} />
-        <Route path="/productform" element={<ProductForm />} />
+        <Routes>
+          <Route path="/" exact element={<Home />} />
 
-        <Route path="/cart" element={<Cart />} />
+          <Route path="/products" element={<Products />} />
+          <Route path="/products/:productId" element={<ProductInfo />} />
+          <Route path="/productform" element={<ProductForm />} />
 
-        <Route path="/wishlist" element={<WishList />} />
+          <Route path="/cart" element={<Cart />} />
 
-        <Route path="/login" element={<Login />} />
-        <Route path="/accont" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/userproducts" element={<UserProducts />} />
-      </Routes>
-      <Footer />
+          <Route path="/wishlist" element={<WishList />} />
+
+          <Route path="/login" element={<Login />} />
+          <Route path="/accont" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/userproducts" element={<UserProducts />} />
+        </Routes>
+
+        <Footer />
+      </Layout>
     </ChakraProvider>
   );
 }

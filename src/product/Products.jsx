@@ -14,6 +14,7 @@ import {
 } from "@chakra-ui/react";
 
 import Product from "./Product";
+import ProductSkeleton from "./ProductSkeleton";
 
 export default function Products() {
   const { products, error, loading } = GetAllProducts();
@@ -54,7 +55,6 @@ export default function Products() {
     }
   }, []);
 
-  if (loading) return "Loading...";
   if (error) return "Error..." + error;
   return (
     <Box>
@@ -92,7 +92,8 @@ export default function Products() {
             <option value="highestPrice">Highest price</option>
           </Select>
           <WrapItem className="m-1">
-            {products
+            {loading ? <><ProductSkeleton/><ProductSkeleton /><ProductSkeleton/></> : 
+            products
               .filter((product) =>
                 product.name.toLowerCase().includes(search.toLowerCase())
               )
@@ -103,7 +104,7 @@ export default function Products() {
               .slice(0, productCount)
               .map((product, index) => {
                 return <Product key={index} product={product} />;
-              })}
+              })} 
           </WrapItem>
         </Wrap>
       )}

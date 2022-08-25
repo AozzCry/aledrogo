@@ -7,8 +7,8 @@ import Home from "./main/Home";
 import Footer from "./main/Footer";
 
 import Products from "./product/Products";
-import CreateProduct from "./product/CreateProduct";
 import ProductInfo from "./product/ProductInfo";
+import ProductForm from "./product/ProductForm";
 
 import WishList from "./wishlist/WishList";
 
@@ -33,7 +33,7 @@ export default function App() {
 
         <Route path="/products" element={<Products />} />
         <Route path="/products/:productId" element={<ProductInfo />} />
-        <Route path="/createproduct" element={<CreateProduct />} />
+        <Route path="/productform" element={<ProductForm />} />
 
         <Route path="/cart" element={<Cart />} />
 

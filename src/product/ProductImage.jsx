@@ -6,6 +6,7 @@ export default function ProductImage({ image, name, size }) {
     <Image
       boxSize={size}
       objectFit="cover"
+      w={'100%'}
       alt={name}
       src={API + "/" + image}
     />

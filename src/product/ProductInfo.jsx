@@ -57,7 +57,7 @@ export default function ProductInfo() {
   if (loading) return "Loading...";
   if (error) return "Error..." + error;
   return (
-    <Box maxW="3xl" borderWidth="1px" borderRadius="lg" overflow="hidden">
+    <Box  borderWidth="1px" borderRadius="lg" overflow="hidden">
       <Grid templateColumns="repeat(2, 1fr)" gap={6}>
         <GridItem>
           <HStack color="teal.500">
@@ -116,11 +116,17 @@ export default function ProductInfo() {
             {product.images_url &&
               product.images_url.map((photo_url, index) => (
                 <GridItem
+                  border={'4px'}
+                  borderColor={photo_url === image ? 'teal.400':'teal.800'}
+                  borderRadius={'5px'}
+                  _hover={{ transform: "scale(1.2)" }}
+                  transition={'1s'}
                   onClick={() => setImage(photo_url)}
                   key={index}
                   m={0.5}
                 >
                   <ProductImage
+                    
                     size={"16vh"}
                     image={photo_url}
                     name={product.name}

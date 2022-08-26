@@ -12,6 +12,11 @@ import {
   Text,
   HStack,
   useToast,
+  Accordion,
+  AccordionButton,
+  AccordionItem,
+  AccordionIcon,
+  AccordionPanel,
 } from "@chakra-ui/react";
 import { ArrowUpIcon, StarIcon, ArrowDownIcon } from "@chakra-ui/icons";
 
@@ -34,7 +39,6 @@ export default function Review({ review, productId }) {
       isClosable: true,
     });
   }
-
   return (
     <Box maxW="3xl" borderWidth="1px" borderRadius="lg" overflow="hidden" p={2}>
       <Box>
@@ -47,8 +51,7 @@ export default function Review({ review, productId }) {
             />
           ))}
       </Box>
-      <Box fontWeight={"200"}>{review.date}</Box>
-
+      <Box fontWeight={"200"}>{new Date(review.date).toLocaleString()}</Box>
       <Box fontWeight={"bold"} mt={2}>
         <Flex>
           <Image
@@ -70,14 +73,29 @@ export default function Review({ review, productId }) {
           <ArrowDownIcon /> <Text>0</Text>
         </HStack>
       </Box>
-      {review.comments &&
-        review.comments.map((comment, index) => {
-          return (
-            <Box key={index}>
-              {comment.date} | {comment.username} | {comment.text}
-            </Box>
-          );
-        })}
+      <Accordion allowToggle>
+        <AccordionItem>
+          <AccordionButton>
+            <Button color={"teal.300"} flex="1" textAlign="left">
+              Show comments
+              <AccordionIcon />
+            </Button>
+          </AccordionButton>
+
+          <AccordionPanel>
+            {review.comments &&
+              review.comments.map((comment, index) => {
+                return (
+                  <Box key={index} borderWidth="1px" borderRadius="lg">
+                    <Text>{comment.userName}</Text>
+                    <Text>{new Date(comment.date).toLocaleString()}</Text>
+                    <Box m={"2"}>{comment.text}</Box>
+                  </Box>
+                );
+              })}
+          </AccordionPanel>
+        </AccordionItem>
+      </Accordion>
       <form onSubmit={addCommentSubmit}>
         <FormControl>
           <Input

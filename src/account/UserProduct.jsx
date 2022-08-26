@@ -28,7 +28,11 @@ export default function UserProduct({ product, setProducts }) {
   return (
     <Box maxW="sm" borderWidth="1px" borderRadius="lg" overflow="hidden">
       <Box p="6">
-        <ProductImage images={product.images_url}></ProductImage>
+        <ProductImage
+          size={"20vh"}
+          images={product.images_url[0]}
+          name={product.name}
+        ></ProductImage>
         <Box
           mt="1"
           fontWeight="semibold"

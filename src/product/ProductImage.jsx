@@ -1,9 +1,14 @@
 import API from "../env";
-import { Image, scaleFadeConfig } from "@chakra-ui/react";
+import { Image } from "@chakra-ui/react";
 
-export default function ProductImage({ images }) {
-  return images.length ? (
-    <Image boxSize="100px" objectFit="cover" src={API + "/" + images[0]} />
+export default function ProductImage({ image, name, size }) {
+  return image ? (
+    <Image
+      boxSize={size}
+      objectFit="cover"
+      alt={name}
+      src={API + "/" + image}
+    />
   ) : (
     <Image
       boxSize="100px"

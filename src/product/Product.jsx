@@ -34,11 +34,16 @@ export default function Product({ product }) {
       isClosable: true,
     });
   }
-  console.log(product);
   return (
     <Box maxW="sm" borderWidth="1px" borderRadius="lg" overflow="hidden">
       <Box p="6">
-        <ProductImage images={product.images_url} />
+        <Link to={`/products/${product._id}`} state={product}>
+          <ProductImage
+            size="30vh"
+            image={product.images_url[0]}
+            name={product.name}
+          />
+        </Link>
         <Box
           mt="1"
           fontWeight="semibold"
@@ -71,11 +76,10 @@ export default function Product({ product }) {
             {product.reviews.length}
           </Box>
         </Box>
-        <Button>
-          <Link to={`/products/${product._id}`} state={product}>
-            Show more
-          </Link>
-        </Button>
+        <Link to={`/products/${product._id}`} state={product}>
+          <Button>Show more</Button>
+        </Link>
+
         <Button onClick={addToCartHandler}>Add to cart</Button>
         <Button onClick={addToWishListClick}>Add to wish list</Button>
       </Box>

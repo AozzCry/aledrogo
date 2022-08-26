@@ -92,7 +92,7 @@ export default function ProductInfo() {
         >
           Add to cart
         </Button>
-        <Button onClick={addToWishListClick}>Add to wish list</Button>
+        <Button onClick={addToWishListClick}  _hover={{ transform: "scale(1.2)" }}>Add to wish list</Button>
       </Stack>
       </GridItem>
       <GridItem> 

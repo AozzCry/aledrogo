@@ -105,8 +105,7 @@ export default function Layout() {
           </Button>
         </Link>
 
-        <Spacer />
-        <Logo />
+        <Logo  ml={'2'}/>
         <Spacer />
         <Link to="/products">
           <Button
@@ -121,7 +120,7 @@ export default function Layout() {
             </Text>
           </Button>
         </Link>
-        <Spacer />
+       
 
         <Button borderWidth={"1px"} borderRadius="lg" ml={"4"} p="2" h={10}>
           <PhoneIcon />

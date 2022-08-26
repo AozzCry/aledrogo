@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from "react";
-
 import { GetAllProducts } from "../hooks/useProduct";
-
 import {
   Button,
   FormControl,
@@ -12,11 +10,16 @@ import {
   Box,
   FormLabel,
   Grid,
+  Accordion,
+  AccordionItem,
+  AccordionButton,
+  AccordionPanel,
+  AccordionIcon,
+  Text,
+  Center
 } from "@chakra-ui/react";
-
 import Product from "./Product";
 import ProductSkeleton from "./ProductSkeleton";
-
 export default function Products() {
   const { products, error, loading } = GetAllProducts();
   const [categories, setCategories] = useState([]);
@@ -60,12 +63,25 @@ export default function Products() {
   if (error) return "Error..." + error;
   return (
     <Box>
+      <Accordion defaultIndex={[0]} allowMultiple>
+      <AccordionItem>
+      <AccordionButton>
+      <Box flex='1' textAlign='left'>
+        
+       <Text align={'center'} > Wszystkie rodzaje produktow</Text>
+       
+        </Box>
+        <AccordionIcon />
+      </AccordionButton>
+      <AccordionPanel pb={4}>
+        <Center>
       <Wrap className="m-1">
+        
         {categories.map((cate, index) => {
           return (
             <Button
               key={index}
-              bg={cate === category ? "red" : "blue"}
+              bg={cate === category ? "teal.500" : "teal.800"}
               onClick={() => {
                 if (category === "" || category !== cate) setCategory(cate);
                 else setCategory("");
@@ -75,7 +91,12 @@ export default function Products() {
             </Button>
           );
         })}
+        
       </Wrap>
+      </Center>
+      </AccordionPanel>
+      </AccordionItem>
+      </Accordion>
       <form>
         <FormControl>
           <FormLabel>Search</FormLabel>

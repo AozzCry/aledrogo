@@ -54,7 +54,7 @@ export default function AddReview({ product }) {
      
         <Center>
           
-      <Button colorScheme="teal" variant="outline" type="submit" width={'100%'} mt={8}>
+      <Button colorScheme="teal" type="submit" width={'100%'} mt={8}>
         Add rewiev
       </Button>
       </Center>

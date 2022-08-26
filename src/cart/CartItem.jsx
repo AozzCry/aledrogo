@@ -28,7 +28,11 @@ export default function CartProduct({ item }) {
     <Box maxW="7xl" borderWidth="1px" borderRadius="lg" overflow="hidden">
       <Box m={"3"} borderWidth="1px" borderRadius="lg" overflow="hidden">
         <HStack m={"3"} spacing={8}>
-          <ProductImage images={item.product.images_url} />
+          <ProductImage
+            size={"15vh"}
+            image={item.product.images_url[0]}
+            name={item.product.name}
+          />
           <Text>{item.product.name}</Text>
           <Text>${item.product.price}</Text>
           <input

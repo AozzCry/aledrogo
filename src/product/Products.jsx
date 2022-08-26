@@ -67,7 +67,7 @@ export default function Products() {
               key={index}
               bg={cate === category ? "red" : "blue"}
               onClick={() => {
-                if (category === "") setCategory(cate);
+                if (category === "" || category !== cate) setCategory(cate);
                 else setCategory("");
               }}
             >

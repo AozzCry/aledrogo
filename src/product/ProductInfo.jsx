@@ -57,7 +57,7 @@ export default function ProductInfo() {
   if (loading) return "Loading...";
   if (error) return "Error..." + error;
   return (
-    <Box  borderWidth="1px" borderRadius="lg" overflow="hidden">
+    <Box borderWidth="1px" borderRadius="lg" overflow="hidden">
       <Grid templateColumns="repeat(2, 1fr)" gap={6}>
         <GridItem>
           <HStack color="teal.500">
@@ -101,7 +101,12 @@ export default function ProductInfo() {
             >
               Add to cart
             </Button>
-            <Button onClick={addToWishListClick}  _hover={{ transform: "scale(1.2)" }}>Add to wish list</Button>
+            <Button
+              onClick={addToWishListClick}
+              _hover={{ transform: "scale(1.2)" }}
+            >
+              Add to wish list
+            </Button>
           </Stack>
         </GridItem>
         <GridItem>

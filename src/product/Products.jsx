@@ -61,13 +61,15 @@ export default function Products() {
   return (
     <Box>
       <Wrap className="m-1">
-        <Button onClick={() => setCategory("")}>Show all</Button>
         {categories.map((cate, index) => {
           return (
             <Button
               key={index}
               bg={cate === category ? "red" : "blue"}
-              onClick={() => setCategory(cate)}
+              onClick={() => {
+                if (category === "") setCategory(cate);
+                else setCategory("");
+              }}
             >
               {cate}
             </Button>

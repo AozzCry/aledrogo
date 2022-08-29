@@ -95,7 +95,7 @@ export default function ProductForm() {
   data.append("count", count);
 
   const { fetchProc } = useFetch(
-    product ? "/product/" + product._id : "/product",
+    product ? "/product/id=" + product._id : "/product",
     "POST",
     data
   );

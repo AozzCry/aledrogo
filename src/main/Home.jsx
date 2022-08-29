@@ -2,6 +2,7 @@ import React from "react";
 import { GetAllProducts } from "../hooks/useProduct";
 
 import { Box, Center, Text, Progress, Image } from "@chakra-ui/react";
+import ProductImage from "../product/ProductImage";
 
 export default function Home() {
   const { products, error, loading } = GetAllProducts();
@@ -27,34 +28,33 @@ export default function Home() {
       <Progress size="xs" isIndeterminate colorScheme="teal" />
       <Box mt={"2"}>
         <Center>
-          <Image
-            boxSize="200px"
-            objectFit="cover"
-            src="https://bit.ly/2Z4KKcF"
-            alt="Dan Abramov"
+          <ProductImage
+            size="30vh"
+            image={products[3].images_url[0]}
+            name={products[3].name}
           />
         </Center>
       </Box>
       <Box>
         <Center>
           <Text fontSize="xl" textAlign={"center"} mt={"2"}>
-            {products[0].name}
+            {products[3].name}
           </Text>
         </Center>
       </Box>
       <Box mt={"2"}>
         <Center>
-          <Text as="del"> {products[0].price * 2}</Text>
+          <Text as="del"> {products[3].price * 2}</Text>
         </Center>
       </Box>
       <Box>
         <Center>
           <Text color={"teal.200"} fontSize={"4xl"}>
-            {products[0].price}
+            {products[3].price}
           </Text>
         </Center>
       </Box>
-      <Text ml={"8"}> {products[0].count}</Text>
+      <Text ml={"8"}> {products[3].count}</Text>
       <Center>
         <Progress value={10} colorScheme="teal" w={"80%"} borderRadius="lg" />
       </Center>

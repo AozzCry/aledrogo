@@ -30,7 +30,7 @@ export default function UserProduct({ product, setProducts }) {
       <Box p="6">
         <ProductImage
           size={"20vh"}
-          images={product.images_url[0]}
+          image={product.images_url[0]}
           name={product.name}
         ></ProductImage>
         <Box

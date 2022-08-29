@@ -36,7 +36,7 @@ export default function CartProduct({ item }) {
           <Text>{item.product.name}</Text>
           <Text>${item.product.price}</Text>
           <input
-            default={item.quantity}
+            placeholder={item.quantity}
             onChange={(e) => setQuantity(e.target.value)}
           />
 

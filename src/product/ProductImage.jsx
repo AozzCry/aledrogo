@@ -4,6 +4,9 @@ import { Image } from "@chakra-ui/react";
 export default function ProductImage({ image, name, size }) {
   return image ? (
     <Image
+      border={"4px"}
+      borderColor={"teal.400"}
+      borderRadius={"5px"}
       boxSize={size}
       objectFit="cover"
       w={"100%"}

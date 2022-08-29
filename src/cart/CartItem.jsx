@@ -25,11 +25,11 @@ export default function CartProduct({ item }) {
   };
 
   return (
-    <Box maxW="7xl" borderWidth="1px" borderRadius="lg" overflow="hidden">
-      <Box m={"3"} borderWidth="1px" borderRadius="lg" overflow="hidden">
+    <Box borderWidth="1px" borderRadius="lg">
+      <Box m={"3"} borderWidth="1px" borderRadius="lg">
         <HStack m={"3"} spacing={8}>
           <ProductImage
-            size={"15vh"}
+            size={"25vh"}
             image={item.product.images_url[0]}
             name={item.product.name}
           />

@@ -3,7 +3,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { GetUserProducts } from "../hooks/useProduct";
 
-import { Button, Wrap, WrapItem, Box } from "@chakra-ui/react";
+import { Button, Grid, GridItem, Box } from "@chakra-ui/react";
 
 import UserProduct from "./UserProduct";
 
@@ -18,19 +18,15 @@ export default function UserProducts() {
         <Button className="m-1">Create product</Button>
       </Link>
       {products && (
-        <Wrap>
-          <WrapItem className="m-1">
-            {products.map((product, index) => {
-              return (
-                <UserProduct
-                  key={index}
-                  product={product}
-                  setProducts={setProducts}
-                />
-              );
-            })}
-          </WrapItem>
-        </Wrap>
+        <Grid templateColumns={"repeat(4, 2fr)"}>
+          {products.map((product, index) => {
+            return (
+              <GridItem key={index} className="m-1">
+                <UserProduct product={product} setProducts={setProducts} />
+              </GridItem>
+            );
+          })}
+        </Grid>
       )}
     </Box>
   );

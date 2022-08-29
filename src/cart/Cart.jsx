@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import useFetch from "../hooks/useFetch";
 
 import { useSelector } from "react-redux";
@@ -9,8 +9,6 @@ import {
   Flex,
   Button,
   Center,
-  InputGroup,
-  InputRightElement,
   Input,
   Accordion,
   AccordionItem,
@@ -27,20 +25,34 @@ export default function Cart() {
   const toast = useToast();
   const cart = useSelector((state) => state.cart);
   const [code, setCode] = useState("");
-  const { resData, fetchProc } = useFetch("/discount", "POST", {
+  const [discount, setDiscount] = useState(null);
+  const { resData, setResData, fetchProc } = useFetch("/discount", "POST", {
     code,
   });
   function applyDiscount(e) {
     e.preventDefault();
     fetchProc();
-    toast({
-      title: "Discount applied.",
-      status: "success",
-      duration: 5000,
-      isClosable: true,
-    });
   }
-  console.log(resData);
+  useEffect(() => {
+    if (resData && resData != "This code does not exist.") {
+      setDiscount(resData);
+      toast({
+        title: "Discount applied.",
+        status: "success",
+        duration: 5000,
+        isClosable: true,
+      });
+    } else if (resData == "This code does not exist.") {
+      toast({
+        title: resData,
+        status: "warning",
+        duration: 5000,
+        isClosable: true,
+      });
+      setDiscount(null);
+      setResData(null);
+    }
+  }, [resData]);
   return (
     <Box>
       {cart.items && (
@@ -77,7 +89,16 @@ export default function Cart() {
         </Accordion>
         <Flex justifyContent={"justify-between"}>
           <Box p={"4"} fontWeight={"bold"}>
-            Total ammount <Box color={"teal.300"}>${cart.totalPrice}</Box>
+            Total ammount{" "}
+            <Box color={"teal.300"}>
+              $
+              {(
+                cart.totalPrice *
+                (discount && discount.discountValue
+                  ? (100 - parseInt(discount.discountValue)) / 100
+                  : 1)
+              ).toFixed(2)}
+            </Box>
           </Box>
         </Flex>
         <Center>

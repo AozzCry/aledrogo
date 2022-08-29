@@ -1,7 +1,7 @@
 import React from "react";
 import { GetAllProducts } from "../hooks/useProduct";
 
-import { Box, Center, Text, Progress, Image } from "@chakra-ui/react";
+import { Box, Center, Text, Progress } from "@chakra-ui/react";
 import ProductImage from "../product/ProductImage";
 
 export default function Home() {

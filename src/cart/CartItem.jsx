@@ -5,7 +5,7 @@ import { cartActions } from "../store/cart-slice";
 
 import { Link } from "react-router-dom";
 
-import { Box, HStack, Image, Text, Button } from "@chakra-ui/react";
+import { Box, HStack, Text, Button } from "@chakra-ui/react";
 import { DeleteIcon } from "@chakra-ui/icons";
 import ProductImage from "../product/ProductImage";
 

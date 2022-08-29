@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Textarea,Grid, GridItem,Center,Box } from '@chakra-ui/react'
+import { Textarea, Grid, GridItem, Center } from "@chakra-ui/react";
 import useFetch from "../hooks/useFetch";
 
 import {
@@ -34,32 +34,28 @@ export default function AddReview({ product }) {
 
   return (
     <form onSubmit={addReview}>
-      <Grid templateColumns='repeat(2, 1fr)' gap={6}>
-      <GridItem>
-      <FormControl>
-        <FormLabel>Enter grade 1-5</FormLabel>
-        <Input
-          type="number"
-          value={grade}
-          placeholder="Enter grade"
-          min={0}
-          max={5}
-          onChange={(e) => setGrade(e.target.value)}
-          required
-        ></Input>
-        
-      </FormControl>
-      </GridItem>
-      <GridItem>
-     
-        <Center>
-          
-      <Button colorScheme="teal" type="submit" width={'100%'} mt={8}>
-        Add rewiev
-      </Button>
-      </Center>
-      
-      </GridItem>
+      <Grid templateColumns="repeat(2, 1fr)" gap={6}>
+        <GridItem>
+          <FormControl>
+            <FormLabel>Enter grade 1-5</FormLabel>
+            <Input
+              type="number"
+              value={grade}
+              placeholder="Enter grade"
+              min={0}
+              max={5}
+              onChange={(e) => setGrade(e.target.value)}
+              required
+            ></Input>
+          </FormControl>
+        </GridItem>
+        <GridItem>
+          <Center>
+            <Button colorScheme="teal" type="submit" width={"100%"} mt={8}>
+              Add rewiev
+            </Button>
+          </Center>
+        </GridItem>
       </Grid>
       <FormControl>
         <FormLabel>Enter review</FormLabel>
@@ -71,9 +67,6 @@ export default function AddReview({ product }) {
           required
         ></Textarea>
       </FormControl>
-
-      
-     
     </form>
   );
 }

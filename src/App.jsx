@@ -18,7 +18,6 @@ import Login from "./account/Login";
 import Register from "./account/Register";
 import UserProducts from "./account/UserProducts";
 import EditUser from "./account/EditUser";
-import Layout from "./Layout";
 
 const theme = extendTheme({
   config: {
@@ -43,8 +42,9 @@ export default function App() {
         <Route path="/wishlist" element={<WishList />} />
 
         <Route path="/login" element={<Login />} />
-        <Route path="/accont" element={<Login />} />
         <Route path="/register" element={<Register />} />
+
+        <Route path="/accont" element={<Login />} />
         <Route path="/edituser" element={<EditUser />} />
         <Route path="/userproducts" element={<UserProducts />} />
       </Routes>

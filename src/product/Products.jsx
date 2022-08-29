@@ -59,6 +59,7 @@ export default function Products() {
     }
   }, [products]);
 
+  if (loading) return "Loading" + error;
   if (error) return "Error..." + error;
   return (
     <Box>
